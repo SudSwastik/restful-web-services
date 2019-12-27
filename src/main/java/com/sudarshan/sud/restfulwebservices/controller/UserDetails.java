@@ -4,9 +4,7 @@ package com.sudarshan.sud.restfulwebservices.controller;
 import com.sudarshan.sud.restfulwebservices.model.User;
 import com.sudarshan.sud.restfulwebservices.service.UserDaoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,6 +22,11 @@ public class UserDetails {
     @GetMapping("/users/{id}")
     public User retrieveUser(@PathVariable int id) {
         return service.findOne(id);
+    }
+
+    @PostMapping("/users")
+    public void createUser(@RequestBody User user){
+        User savedUser = service.save(user);
     }
 
 }

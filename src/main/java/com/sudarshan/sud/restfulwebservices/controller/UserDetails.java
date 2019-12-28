@@ -1,6 +1,7 @@
 package com.sudarshan.sud.restfulwebservices.controller;
 
 
+import com.sudarshan.sud.restfulwebservices.exception.UserNotFoundException;
 import com.sudarshan.sud.restfulwebservices.model.User;
 import com.sudarshan.sud.restfulwebservices.service.UserDaoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,11 @@ public class UserDetails {
 
     @GetMapping("/users/{id}")
     public User retrieveUser(@PathVariable int id) {
-        return service.findOne(id);
+
+        User user = service.findOne(id);
+        if(user==null)
+            throw new UserNotFoundException("id-"+ id);
+        return user;
     }
 
     @PostMapping("/users")
